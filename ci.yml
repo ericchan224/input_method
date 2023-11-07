@@ -1,23 +1,28 @@
 Global:
-    version: 2.0
-    group_email: chenxiaokang05@baidu.com   # <------ 配置团队邮箱地址，用于接收xx.latest软件版本升级通知邮件
-
+  mode: AGENT
+  version: 2.0
 
 Default:
-    profile : [build]
+  profile: [image_register,auto_check]
 
 Profiles:
-    - profile:
-      name : build
-      mode: AGENT
-      environment:
-        image: DECK_STD_CENTOS7
-        tools:
-          - go: 1.20.latest
-      build:
-        command: make -f Makefile
-      check:
-        - reuse: TASK
-          enable: true
-      artifacts:
-        release: true
+  - profile:
+    name : auto_check
+    mode: AGENT
+    environment:
+      image: iregistry.baidu-int.com/goodcoder-go/centos7/pingyin-spell:v1.0.1
+      resourceType: SMALL
+    build:
+      command: auto_check
+    check:
+      - reuse: TASK
+        enable: true
+    artifacts:
+      release: true
+
+  - profile:
+    name: image_register
+    mode: AGENT_FOR_IMAGE_REGISTER
+    group_mail: chenxiaokang05@baidu.com
+    images:
+      - image: iregistry.baidu-int.com/goodcoder-go/centos7/pingyin-spell:v1.0.1
