@@ -106,6 +106,7 @@ func (mim *MyInputMethod) Insert(word string, characters []Character) {
 	mim.radix.Insert(word, characters)
 }
 
+// SetRadix 将传入的 Radix 指针赋值给 MyInputMethod 结构体中的 radix 成员变量
 func (mim *MyInputMethod) SetRadix(radix *Radix) {
 	mim.radix = radix
 }
