@@ -21,18 +21,14 @@ func TestNewMyInputMethod(t *testing.T) {
 
 // TestMyInputMethod_FindWords 函数测试MyInputMethod的FindWords方法
 func TestFindWords(t *testing.T) {
-	// dicts := []string{"../dict/zhan.dat",
-	// 	"../dict/zhang.dat",
-	// 	"../dict/de.dat",
-	// 	"../dict/chang.dat",
-	// 	"../dict/cha.dat",
-	// 	"../dict/chao.dat"}
-	// input := NewMyInputMethod(dicts)
-	// for int(DictCount.Count) < len(dicts) {
-	// 	// 设置超时时间
-	// 	time.Sleep(time.Second)
-	// 	t.Log("waiting for dicts loading...")
-	// }
+	dicts := []string{"../dict/zhan.dat",
+		"../dict/zhang.dat",
+		"../dict/de.dat",
+		"../dict/chang.dat",
+		"../dict/cha.dat",
+		"../dict/chao.dat"}
+	input := NewMyInputMethod(dicts)
+
 	tests := []struct {
 		name  string
 		input *MyInputMethod
@@ -41,7 +37,7 @@ func TestFindWords(t *testing.T) {
 	}{
 		{
 			name:  "test find words 4",
-			input: nil,
+			input: input,
 			spell: "de",
 		},
 	}
