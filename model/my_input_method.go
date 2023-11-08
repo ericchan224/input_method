@@ -2,7 +2,6 @@ package model
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -16,7 +15,7 @@ import (
 // MyInputMethod ...
 type MyInputMethod struct {
 	// 你的数据结构在这里
-	radix *Radix
+	Root *radixNode
 	// 锁
 	sync.RWMutex
 }
@@ -24,8 +23,9 @@ type MyInputMethod struct {
 // NewMyInputMethod 根据传入的词典文件创建一个新的输入法实例，
 // 如果词典文件格式有误，忽略格式有误的文件
 func NewMyInputMethod(dicts []string) *MyInputMethod {
-	mim := MyInputMethod{}
-	mim.SetRadix(NewRadix())
+	mim := MyInputMethod{
+		Root: &radixNode{},
+	}
 
 	wg := &sync.WaitGroup{}
 	for i := range dicts {
@@ -92,33 +92,22 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			// 插入Radix树
 			// 按照频次排序
 			CharacterSort(characters)
+			if mim.Search(word) {
+				return
+			}
 			mim.Lock()
 			defer mim.Unlock()
-			mim.Insert(word, characters)
+			mim.Root.insert(word, characters)
 		}(dict, &mim, wg)
 	}
 	wg.Wait()
 	return &mim
 }
 
-// Insert 向MyInputMethod中插入一个单词和对应的字符
-func (mim *MyInputMethod) Insert(word string, characters []Character) {
-	if mim.radix == nil {
-		fmt.Printf("radix is nil")
-		return
-	}
-	mim.radix.Insert(word, characters)
-}
-
-// SetRadix 将传入的 Radix 指针赋值给 MyInputMethod 结构体中的 radix 成员变量
-func (mim *MyInputMethod) SetRadix(radix *Radix) {
-	mim.radix = radix
-}
-
 // FindWords 根据输入的拼音返回对应的汉字，返回规则见功能描述
 func (mim *MyInputMethod) FindWords(spell string) (words []string) {
 	// Your code here
-	characters := mim.radix.GetCharacter(spell)
+	characters := mim.GetCharacter(spell)
 	for _, v := range characters {
 		words = append(words, v.Word)
 	}

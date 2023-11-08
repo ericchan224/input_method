@@ -1,57 +1,19 @@
 package model
 
 import (
-	"fmt"
 	"strings"
 	// "icode.baidu.com/baidu/goodcoder/input_method/common"
 )
 
-// Radix 存储前缀树节点
-type Radix struct {
-	root *radixNode
-}
-
-// NewRadix 函数返回一个指向Radix类型的指针
-func NewRadix() *Radix {
-	return &Radix{
-		root: &radixNode{},
-	}
-}
-
-// Range 函数以深度优先遍历的方式遍历 Radix 树，并将遍历结果打印出来
-func (r *Radix) Range() {
-	stack := []*radixNode{r.root}
-	for len(stack) > 0 {
-		newStack := make([]*radixNode, 0)
-		for _, node := range stack {
-			fmt.Printf("%s\t", node.path)
-			newStack = append(newStack, node.children...)
-		}
-		fmt.Println()
-		stack = newStack
-	}
-}
-
-// Insert 向Radix树中插入一个单词与对应的值
-func (r *Radix) Insert(word string, values []Character) {
-	// 不重复插入,异步查询
-	if r.Search(word) {
-		return
-	}
-
-	// 插入
-	r.root.insert(word, values)
-}
-
 // Search 查看一个单词在 radix 当中是否存在
-func (r *Radix) Search(word string) bool {
-	node := r.root.search(word)
+func (r *MyInputMethod) Search(word string) bool {
+	node := r.Root.search(word)
 	return node != nil && node.fullPath == word && node.end
 }
 
 // GetCharacter 获取汉字，并根据规则排序
-func (r *Radix) GetCharacter(word string) []Character {
-	node := r.root.search(word)
+func (r *MyInputMethod) GetCharacter(word string) []Character {
+	node := r.Root.search(word)
 
 	// 表示完全匹配
 	if node != nil && node.fullPath == word && node.end {
@@ -90,14 +52,14 @@ func (r *Radix) GetCharacter(word string) []Character {
 }
 
 // StartWith 前缀匹配流程
-func (r *Radix) StartWith(prefix string) bool {
-	node := r.root.search(prefix)
+func (r *MyInputMethod) StartWith(prefix string) bool {
+	node := r.Root.search(prefix)
 	return node != nil && strings.HasPrefix(node.fullPath, prefix)
 }
 
 // PassCnt 返回以 prefix 为前缀的路由对应的 passCnt 值
-func (r *Radix) PassCnt(prefix string) int {
-	node := r.root.search(prefix)
+func (r *MyInputMethod) PassCnt(prefix string) int {
+	node := r.Root.search(prefix)
 	if node == nil || !strings.HasPrefix(node.fullPath, prefix) {
 		return 0
 	}
@@ -105,46 +67,46 @@ func (r *Radix) PassCnt(prefix string) int {
 }
 
 // Erase 删除调一个字典
-func (r *Radix) Erase(word string) bool {
+func (r *MyInputMethod) Erase(word string) bool {
 	if !r.Search(word) {
 		return false
 	}
 
-	// root 直接精准命中了
-	if r.root.fullPath == word {
+	// Root 直接精准命中了
+	if r.Root.fullPath == word {
 		// 如果一个孩子都没有
-		if len(r.root.indices) == 0 {
-			r.root.path = ""
-			r.root.fullPath = ""
-			r.root.end = false
-			r.root.passCnt = 0
+		if len(r.Root.indices) == 0 {
+			r.Root.path = ""
+			r.Root.fullPath = ""
+			r.Root.end = false
+			r.Root.passCnt = 0
 			return true
 		}
 
 		// 如果只有一个孩子
-		if len(r.root.indices) == 1 {
-			r.root.children[0].path = r.root.path + r.root.children[0].path
-			r.root = r.root.children[0]
+		if len(r.Root.indices) == 1 {
+			r.Root.children[0].path = r.Root.path + r.Root.children[0].path
+			r.Root = r.Root.children[0]
 			return true
 		}
 
 		// 如果有多个孩子
-		for i := 0; i < len(r.root.indices); i++ {
-			r.root.children[i].path = r.root.path + r.root.children[0].path
+		for i := 0; i < len(r.Root.indices); i++ {
+			r.Root.children[i].path = r.Root.path + r.Root.children[0].path
 		}
 
 		newRoot := radixNode{
-			indices:  r.root.indices,
-			children: r.root.children,
-			passCnt:  r.root.passCnt - 1,
+			indices:  r.Root.indices,
+			children: r.Root.children,
+			passCnt:  r.Root.passCnt - 1,
 		}
-		r.root = &newRoot
+		r.Root = &newRoot
 		return true
 	}
 
 	// 确定 word 存在的情况下
-	move := r.root
-	// root 单独作为一个分支处理
+	move := r.Root
+	// Root 单独作为一个分支处理
 	// 其他情况下，需要对孩子进行处理
 walk:
 	for {

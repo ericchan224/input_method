@@ -31,26 +31,3 @@ func TestFindWords(t *testing.T) {
 
 	t.Logf("words: %v", input.FindWords("de"))
 }
-
-// TestMyInputMethod_Insert 是一个用于测试 MyInputMethod 结构体的 Insert 方法的函数
-func TestMyInputMethod_Insert(t *testing.T) {
-	t.Run("insert word:", func(t *testing.T) {
-		mim := MyInputMethod{}
-		mim.SetRadix(NewRadix())
-		mim.Insert("zhan", []Character{
-			{
-				"站",
-				1,
-				10,
-			},
-		})
-	})
-}
-
-// TestSetRadix 是一个用于测试SetRadix函数的测试函数
-func TestSetRadix(t *testing.T) {
-	t.Run("set radix:", func(t *testing.T) {
-		mim := MyInputMethod{}
-		mim.SetRadix(NewRadix())
-	})
-}
