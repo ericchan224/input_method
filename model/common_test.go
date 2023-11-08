@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+// TestCommonPrefixLen 函数用于测试 commonPrefixLen 函数的正确性
 func TestCommonPrefixLen(t *testing.T) {
 	type args struct {
 		wordA string
