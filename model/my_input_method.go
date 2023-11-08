@@ -26,7 +26,7 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 	mim := MyInputMethod{}
 	mim.SetRadix(NewRadix())
 
-	var wg *sync.WaitGroup
+	wg := sync.WaitGroup{}
 	for i := range dicts {
 		dict := dicts[i]
 		go func(dict string, mim *MyInputMethod, wg *sync.WaitGroup) {
@@ -92,7 +92,7 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			// 按照频次排序
 			CharacterSort(characters)
 			mim.Insert(word, characters)
-		}(dict, &mim, wg)
+		}(dict, &mim, &wg)
 	}
 	wg.Wait()
 	return &mim
