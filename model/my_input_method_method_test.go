@@ -39,6 +39,7 @@ func TestPassCnt(t *testing.T) {
 	})
 }
 
+// TestMyInputMethod_Search 是一个用于测试MyInputMethod的Search方法的函数
 func TestMyInputMethod_Search(t *testing.T) {
 	r := GetMethod()
 	t.Run("test search", func(t *testing.T) {
