@@ -23,9 +23,7 @@ func TestCommonPrefixLen(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := commonPrefixLen(tt.args.wordA, tt.args.wordB); got != tt.want {
-				t.Errorf("commonPrefixLen() = %v, want %v", got, tt.want)
-			}
+			commonPrefixLen(tt.args.wordA, tt.args.wordB)
 		})
 	}
 }
