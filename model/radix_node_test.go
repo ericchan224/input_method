@@ -4,8 +4,6 @@ import (
 	"testing"
 )
 
-
-
 // TestRadixNode_Insert 测试 RadixNode 的 Insert 方法
 func TestRadixNode_Insert(t *testing.T) {
 	type args struct {
@@ -47,7 +45,7 @@ func TestRadixNode_Insert(t *testing.T) {
 // TestRadixNode_insertWord 用于测试 RadixNode 结构体的 insertWord 方法
 func TestRadixNode_insertWord(t *testing.T) {
 	type args struct {
-		path   string
+		path     string
 		fullPath string
 		values   []Character
 	}
@@ -59,7 +57,7 @@ func TestRadixNode_insertWord(t *testing.T) {
 		{
 			name: "test1",
 			args: args{
-				path:    "a",
+				path:     "a",
 				fullPath: "a",
 				values:   []Character{},
 			},
@@ -68,7 +66,7 @@ func TestRadixNode_insertWord(t *testing.T) {
 		{
 			name: "test2",
 			args: args{
-				path:    "ab",
+				path:     "ab",
 				fullPath: "ab",
 				values:   []Character{},
 			},
