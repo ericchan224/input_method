@@ -6,14 +6,14 @@ import (
 )
 
 // Search 查看一个单词在 radix 当中是否存在
-func (r *MyInputMethod) Search(word string) bool {
-	node := r.Root.search(word)
+func (mim *MyInputMethod) Search(word string) bool {
+	node := mim.Root.search(word)
 	return node != nil && node.fullPath == word && node.end
 }
 
 // GetCharacter 获取汉字，并根据规则排序
-func (r *MyInputMethod) GetCharacter(word string) []Character {
-	node := r.Root.search(word)
+func (mim *MyInputMethod) GetCharacter(word string) []Character {
+	node := mim.Root.search(word)
 
 	// 表示完全匹配
 	if node != nil && node.fullPath == word && node.end {
@@ -52,14 +52,14 @@ func (r *MyInputMethod) GetCharacter(word string) []Character {
 }
 
 // StartWith 前缀匹配流程
-func (r *MyInputMethod) StartWith(prefix string) bool {
-	node := r.Root.search(prefix)
+func (mim *MyInputMethod) StartWith(prefix string) bool {
+	node := mim.Root.search(prefix)
 	return node != nil && strings.HasPrefix(node.fullPath, prefix)
 }
 
 // PassCnt 返回以 prefix 为前缀的路由对应的 passCnt 值
-func (r *MyInputMethod) PassCnt(prefix string) int {
-	node := r.Root.search(prefix)
+func (mim *MyInputMethod) PassCnt(prefix string) int {
+	node := mim.Root.search(prefix)
 	if node == nil || !strings.HasPrefix(node.fullPath, prefix) {
 		return 0
 	}
@@ -67,45 +67,45 @@ func (r *MyInputMethod) PassCnt(prefix string) int {
 }
 
 // Erase 删除调一个字典
-func (r *MyInputMethod) Erase(word string) bool {
-	if !r.Search(word) {
+func (mim *MyInputMethod) Erase(word string) bool {
+	if !mim.Search(word) {
 		return false
 	}
 
 	// Root 直接精准命中了
-	if r.Root.fullPath == word {
+	if mim.Root.fullPath == word {
 		// 如果一个孩子都没有
-		if len(r.Root.indices) == 0 {
-			r.Root.path = ""
-			r.Root.fullPath = ""
-			r.Root.end = false
-			r.Root.passCnt = 0
+		if len(mim.Root.indices) == 0 {
+			mim.Root.path = ""
+			mim.Root.fullPath = ""
+			mim.Root.end = false
+			mim.Root.passCnt = 0
 			return true
 		}
 
 		// 如果只有一个孩子
-		if len(r.Root.indices) == 1 {
-			r.Root.children[0].path = r.Root.path + r.Root.children[0].path
-			r.Root = r.Root.children[0]
+		if len(mim.Root.indices) == 1 {
+			mim.Root.children[0].path = mim.Root.path + mim.Root.children[0].path
+			mim.Root = mim.Root.children[0]
 			return true
 		}
 
 		// 如果有多个孩子
-		for i := 0; i < len(r.Root.indices); i++ {
-			r.Root.children[i].path = r.Root.path + r.Root.children[0].path
+		for i := 0; i < len(mim.Root.indices); i++ {
+			mim.Root.children[i].path = mim.Root.path + mim.Root.children[0].path
 		}
 
 		newRoot := radixNode{
-			indices:  r.Root.indices,
-			children: r.Root.children,
-			passCnt:  r.Root.passCnt - 1,
+			indices:  mim.Root.indices,
+			children: mim.Root.children,
+			passCnt:  mim.Root.passCnt - 1,
 		}
-		r.Root = &newRoot
+		mim.Root = &newRoot
 		return true
 	}
 
 	// 确定 word 存在的情况下
-	move := r.Root
+	move := mim.Root
 	// Root 单独作为一个分支处理
 	// 其他情况下，需要对孩子进行处理
 walk:
