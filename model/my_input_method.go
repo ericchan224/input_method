@@ -92,11 +92,11 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			// 插入Radix树
 			// 按照频次排序
 			CharacterSort(characters)
+			mim.Lock()
+			defer mim.Unlock()
 			if mim.Search(word) {
 				return
 			}
-			mim.Lock()
-			defer mim.Unlock()
 			mim.Root.insert(word, characters)
 		}(dict, &mim, wg)
 	}
