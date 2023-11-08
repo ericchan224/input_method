@@ -2,6 +2,7 @@ package model
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -103,6 +104,10 @@ func (mim *MyInputMethod) Insert(word string, characters []Character) {
 	mim.lock.Lock()
 	defer mim.lock.Unlock()
 
+	if mim.radix == nil {
+		fmt.Printf("radix is nil")
+		return
+	}
 	mim.radix.Insert(word, characters)
 }
 
