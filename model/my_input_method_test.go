@@ -13,11 +13,10 @@ func TestNewMyInputMethod(t *testing.T) {
 		"../dict/cha.dat",
 		"../dict/chao.dat"}
 
-	// t.Run("test new my input method", func(t *testing.T) {
-	_ = NewMyInputMethod(dicts)
+	t.Run("test new my input method", func(t *testing.T) {
+		_ = NewMyInputMethod(dicts)
 
-	// r.Radix.Range()
-	// })
+	})
 }
 
 // TestMyInputMethod_FindWords 函数测试MyInputMethod的FindWords方法
