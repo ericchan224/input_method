@@ -18,7 +18,7 @@ type MyInputMethod struct {
 	// 你的数据结构在这里
 	radix *Radix
 	// 锁
-	lock sync.RWMutex
+	sync.RWMutex
 }
 
 // NewMyInputMethod 根据传入的词典文件创建一个新的输入法实例，
@@ -92,6 +92,8 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			// 插入Radix树
 			// 按照频次排序
 			CharacterSort(characters)
+			mim.Lock()
+			defer mim.Unlock()
 			mim.Insert(word, characters)
 		}(dict, &mim, &wg)
 	}
@@ -101,9 +103,6 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 
 // Insert 向MyInputMethod中插入一个单词和对应的字符
 func (mim *MyInputMethod) Insert(word string, characters []Character) {
-	mim.lock.Lock()
-	defer mim.lock.Unlock()
-
 	if mim.radix == nil {
 		fmt.Printf("radix is nil")
 		return
