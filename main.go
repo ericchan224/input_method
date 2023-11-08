@@ -28,7 +28,6 @@ import (
 	"icode.baidu.com/baidu/goodcoder/input_method/model"
 )
 
-// main the function where execution of the program begins
 // InputMethod 是一个输入方法接口，用于查找词组。
 type InputMethod interface {
 	FindWords(string) []string

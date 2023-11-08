@@ -17,6 +17,7 @@ linters:
     - govet
     - gocyclo
     - goimports
+    - golint
 linters-settings:
   lll:
     # max line length, lines longer will be reported. Default is 120.
