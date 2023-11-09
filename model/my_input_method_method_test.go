@@ -27,6 +27,15 @@ func GetMethod() *MyInputMethod {
 			{Word: "数", Len: 3, Count: 9},
 			{Word: "书", Len: 3, Count: 10},
 		})
+		m.Root.insert("she", []Character{
+			{"舍", 3, 10},
+		})
+		m.Root.insert("shen", []Character{
+			{"神", 4, 9},
+		})
+		m.Root.insert("de", []Character{
+			{"的", 2, 10},
+		})
 	})
 	return m
 }
@@ -50,9 +59,12 @@ func TestMyInputMethod_Search(t *testing.T) {
 // TestGetCharacter 是一个测试函数，用于获取字符。
 func TestGetCharacter(t *testing.T) {
 	m := GetMethod()
-	t.Run("test get character", func(t *testing.T) {
-		t.Logf("get character: %v", m.GetCharacter("sh"))
-	})
+	spells := []string{"shui", "shu", "she", "shen", "de", "sh"}
+	for _, v := range spells {
+		t.Run("test get character", func(t *testing.T) {
+			t.Logf("get character: %v", m.GetCharacter(v))
+		})
+	}
 }
 
 // TestStartWith 是一个用于测试StartWith函数的函数
@@ -66,8 +78,11 @@ func TestStartWith(t *testing.T) {
 // TestErase 是一个用于测试Erase方法的函数
 func TestErase(t *testing.T) {
 	m := GetMethod()
-	t.Run("test erase", func(t *testing.T) {
-		m.Erase("shu")
-		t.Logf("%v", m.Search("shu"))
-	})
+	spells := []string{"shui", "shu", "sh", "s", "", "shen", "she", "d", "de", "i", "u", "ui"}
+	for _, v := range spells {
+		t.Run("test erase", func(t *testing.T) {
+			m.Erase(v)
+			t.Logf("%v", m.Search(v))
+		})
+	}
 }
