@@ -94,9 +94,6 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			CharacterSort(characters)
 			mim.Lock()
 			defer mim.Unlock()
-			if mim.Search(word) {
-				return
-			}
 			mim.Root.insert(word, characters)
 		}(dict, &mim, wg)
 	}
