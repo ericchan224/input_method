@@ -17,10 +17,7 @@ func (mim *MyInputMethod) GetCharacter(word string) []Character {
 
 	// 表示完全匹配
 	if node != nil && node.fullPath == word && node.end {
-		if len(node.values) < 10 {
-			return node.values[:]
-		}
-		return node.values[:10]
+		return node.values[:]
 	}
 
 	// 表示不完全匹配
