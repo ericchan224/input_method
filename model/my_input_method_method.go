@@ -39,7 +39,7 @@ func (mim *MyInputMethod) GetCharacter(word string) []Character {
 		}
 		// 按照规则排序
 		// CharacterSort(characters)
-		Sort(characters, 0, len(characters)-1)
+		CharacterSort(characters)
 		if len(characters) < 10 {
 			return characters[:]
 		}

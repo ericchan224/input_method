@@ -8,4 +8,6 @@ type Character struct {
 	Len int
 	// 汉字频次
 	Count int
+	// 原来的顺序
+	Line int
 }

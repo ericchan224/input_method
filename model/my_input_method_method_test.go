@@ -17,40 +17,40 @@ func GetMethod() *MyInputMethod {
 			Root: &radixNode{},
 		}
 		m.Root.insert("shui", []Character{
-			{Word: "税", Len: 4, Count: 5},
-			{Word: "谁", Len: 4, Count: 9},
-			{Word: "水", Len: 4, Count: 10},
-			{Word: "水", Len: 4, Count: 10},
+			{Word: "税", Len: 4, Count: 5, Line: 4},
+			{Word: "谁", Len: 4, Count: 9, Line: 3},
+			{Word: "水", Len: 4, Count: 10, Line: 2},
+			{Word: "水", Len: 4, Count: 10, Line: 1},
 		})
 		m.Root.insert("shu", []Character{
-			{Word: "树", Len: 3, Count: 5},
-			{Word: "数", Len: 3, Count: 9},
-			{Word: "书", Len: 3, Count: 10},
+			{Word: "树", Len: 3, Count: 5, Line: 3},
+			{Word: "数", Len: 3, Count: 9, Line: 2},
+			{Word: "书", Len: 3, Count: 10, Line: 1},
 		})
 		m.Root.insert("she", []Character{
-			{"舍", 3, 10},
+			{"舍", 3, 10, 1},
 		})
 		m.Root.insert("shen", []Character{
-			{"神", 4, 9},
+			{"神", 4, 9, 1},
 		})
 		m.Root.insert("de", []Character{
-			{"的", 2, 10},
+			{"的", 2, 10, 1},
 		})
 		m.Root.insert("", []Character{
-			{"潮", 4, 10},
-			{"炒", 4, 10},
-			{"超", 4, 10},
-			{"吵", 4, 10},
-			{"钞", 4, 10},
-			{"巢", 4, 10},
-			{"朝", 4, 10},
-			{"晁", 4, 10},
-			{"嘲", 4, 10},
-			{"绰", 4, 10},
-			{"怊", 4, 10},
-			{"焯", 4, 10},
-			{"耖", 4, 10},
-			{"剿", 4, 10},
+			{"潮", 4, 10, 14},
+			{"炒", 4, 10, 13},
+			{"超", 4, 10, 12},
+			{"吵", 4, 10, 11},
+			{"钞", 4, 10, 10},
+			{"巢", 4, 10, 9},
+			{"朝", 4, 10, 8},
+			{"晁", 4, 10, 7},
+			{"嘲", 4, 10, 6},
+			{"绰", 4, 10, 5},
+			{"怊", 4, 10, 4},
+			{"焯", 4, 10, 3},
+			{"耖", 4, 10, 2},
+			{"剿", 4, 10, 1},
 		})
 	})
 	return m

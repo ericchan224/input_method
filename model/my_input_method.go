@@ -64,7 +64,9 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 
 			// 解析返回内容
 			reader := bufio.NewReader(res)
+			var l int
 			for {
+				l++
 				line, err := reader.ReadBytes('\n')
 				if err != nil && err != io.EOF {
 					log.Println("err:", err)
@@ -82,6 +84,7 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 						Word:  c[0],
 						Len:   wordLength,
 						Count: count,
+						Line:  l,
 					})
 				}
 				if err == io.EOF {
