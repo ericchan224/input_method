@@ -37,7 +37,6 @@ type InputMethod interface {
 func loop(im InputMethod) {
 	stdin := bufio.NewReader(os.Stdin)
 	for {
-		fmt.Print("请输入词语：")
 		spell, err := stdin.ReadString('\n')
 		if err != nil {
 			break
@@ -47,7 +46,7 @@ func loop(im InputMethod) {
 			continue
 		}
 		words := im.FindWords(spell)
-		fmt.Printf("结果展示：%s\n", strings.Join(words, ", "))
+		fmt.Printf("%s\n", strings.Join(words, ", "))
 	}
 }
 
