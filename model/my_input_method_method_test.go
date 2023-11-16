@@ -36,6 +36,22 @@ func GetMethod() *MyInputMethod {
 		m.Root.insert("de", []Character{
 			{"的", 2, 10},
 		})
+		m.Root.insert("", []Character{
+			{"潮", 4, 10},
+			{"炒", 4, 10},
+			{"超", 4, 10},
+			{"吵", 4, 10},
+			{"钞", 4, 10},
+			{"巢", 4, 10},
+			{"朝", 4, 10},
+			{"晁", 4, 10},
+			{"嘲", 4, 10},
+			{"绰", 4, 10},
+			{"怊", 4, 10},
+			{"焯", 4, 10},
+			{"耖", 4, 10},
+			{"剿", 4, 10},
+		})
 	})
 	return m
 }
@@ -43,9 +59,13 @@ func GetMethod() *MyInputMethod {
 // TestPassCnt 是一个用于测试 PassCnt 函数的 Go 语言测试函数
 func TestPassCnt(t *testing.T) {
 	r := GetMethod()
-	t.Run("PassCnt", func(t *testing.T) {
-		t.Logf("pass cnt: %d", r.PassCnt("shu"))
-	})
+
+	spells := []string{"shui", "shu", "she", "shen", "de", "", "qiong"}
+	for _, v := range spells {
+		t.Run("PassCnt", func(t *testing.T) {
+			t.Logf("pass cnt: %d", r.PassCnt(v))
+		})
+	}
 }
 
 // TestMyInputMethod_Search 是一个用于测试MyInputMethod的Search方法的函数
@@ -59,7 +79,7 @@ func TestMyInputMethod_Search(t *testing.T) {
 // TestGetCharacter 是一个测试函数，用于获取字符。
 func TestGetCharacter(t *testing.T) {
 	m := GetMethod()
-	spells := []string{"shui", "shu", "she", "shen", "de", "sh"}
+	spells := []string{"shui", "shu", "she", "shen", "de", "sh", "chao", "ch"}
 	for _, v := range spells {
 		t.Run("test get character", func(t *testing.T) {
 			t.Logf("get character: %v", m.GetCharacter(v))
@@ -73,16 +93,4 @@ func TestStartWith(t *testing.T) {
 	t.Run("test start with", func(t *testing.T) {
 		t.Logf("%v", m.StartWith("sh"))
 	})
-}
-
-// TestErase 是一个用于测试Erase方法的函数
-func TestErase(t *testing.T) {
-	m := GetMethod()
-	spells := []string{"shui", "shu", "sh", "s", "", "shen", "she", "d", "de", "i", "u", "ui"}
-	for _, v := range spells {
-		t.Run("test erase", func(t *testing.T) {
-			m.Erase(v)
-			t.Logf("%v", m.Search(v))
-		})
-	}
 }

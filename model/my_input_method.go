@@ -45,11 +45,11 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			case "http":
 				// 发起网络请求获取字典文件
 				resp, err := common.HTTPCli.Get(dict)
-				defer resp.Body.Close()
 				if err != nil {
 					log.Println("http error:", err)
 					return
 				}
+				defer resp.Body.Close()
 				res = resp.Body
 			default:
 				// 直接从本地获取字典文件

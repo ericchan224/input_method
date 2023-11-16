@@ -11,7 +11,10 @@ func TestNewMyInputMethod(t *testing.T) {
 		"../dict/de.dat",
 		"../dict/chang.dat",
 		"../dict/cha.dat",
-		"../dict/chao.dat"}
+		"../dict/chao.dat",
+		"http://www.baidu.com",
+		"http://www.chenxk.com",
+	}
 
 	t.Run("test new my input method", func(t *testing.T) {
 		_ = NewMyInputMethod(dicts)
