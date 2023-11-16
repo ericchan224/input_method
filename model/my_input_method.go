@@ -17,7 +17,7 @@ type MyInputMethod struct {
 	// 你的数据结构在这里
 	Root *radixNode
 	// 锁
-	sync.RWMutex
+	sync.Mutex
 }
 
 // NewMyInputMethod 根据传入的词典文件创建一个新的输入法实例，
@@ -30,8 +30,8 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 	wg := &sync.WaitGroup{}
 	for i := range dicts {
 		dict := dicts[i]
-		go func(dict string, mim *MyInputMethod, wg *sync.WaitGroup) {
-			wg.Add(1)
+		wg.Add(1)
+		go func(dict string, wg *sync.WaitGroup) {
 			defer wg.Done()
 
 			dictArr := strings.Split(dict, "/")
@@ -95,7 +95,7 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			mim.Lock()
 			defer mim.Unlock()
 			mim.Root.insert(word, characters)
-		}(dict, &mim, wg)
+		}(dict, wg)
 	}
 	wg.Wait()
 	return &mim

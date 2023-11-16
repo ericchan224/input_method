@@ -28,6 +28,5 @@ func TestFindWords(t *testing.T) {
 		"../dict/cha.dat",
 		"../dict/chao.dat"}
 	input := NewMyInputMethod(dicts)
-
 	t.Logf("words: %v", input.FindWords("de"))
 }
