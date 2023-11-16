@@ -53,7 +53,6 @@ func loop(im InputMethod) {
 
 // main 函数是程序的入口点
 func main() {
-	fmt.Println("Hello, World!")
 	urls := os.Args[1:]
 	im := model.NewMyInputMethod(urls)
 
