@@ -42,7 +42,7 @@ func loop(im InputMethod) {
 			break
 		}
 		spell = strings.TrimRight(spell, "\n")
-		if spell == "" {
+		if spell == "" || len(spell) > 6 {
 			continue
 		}
 		words := im.FindWords(spell)
