@@ -26,19 +26,31 @@ func (mim *MyInputMethod) GetCharacter(word string) []Character {
 	// * 相同频次的汉字，对应的拼音字母序也相同，则根据文件中的顺序排列。
 	if node != nil && strings.HasPrefix(node.fullPath, word) {
 		characters := make([]Character, 0, 10)
+		cMap := make(map[string]Character)
 		stack := []*radixNode{node}
 		for len(stack) > 0 {
 			newStack := []*radixNode{}
 			for _, n := range stack {
 				if n.end {
-					characters = append(characters, n.values...)
+					// 多音字过滤，保留频次最高的那个
+					for _, c := range n.values {
+						if _, ok := cMap[c.Word]; !ok {
+							cMap[c.Word] = c
+							continue
+						}
+						if c.Count > cMap[c.Word].Count {
+							cMap[c.Word] = c
+						}
+					}
 				}
 				newStack = append(newStack, n.children...)
 			}
 			stack = newStack
 		}
+		for _, c := range cMap {
+			characters = append(characters, c)
+		}
 		// 按照规则排序
-		// CharacterSort(characters)
 		CharacterSort(characters)
 		if len(characters) < 10 {
 			return characters[:]
