@@ -31,5 +31,9 @@ func TestFindWords(t *testing.T) {
 		"../dict/cha.dat",
 		"../dict/chao.dat"}
 	input := NewMyInputMethod(dicts)
-	t.Logf("words: %v", input.FindWords("de"))
+
+	spells := []string{"", "de"}
+	for _, s := range spells {
+		t.Logf("words: %v", input.FindWords(s))
+	}
 }
