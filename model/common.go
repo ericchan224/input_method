@@ -19,7 +19,7 @@ func CharacterSort(characters []Character) {
 		}
 
 		if characters[i].Count == characters[j].Count {
-			return characters[i].Len < characters[j].Len
+			return characters[i].Spell < characters[j].Spell
 		}
 
 		return characters[i].Count > characters[j].Count

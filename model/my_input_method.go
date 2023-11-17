@@ -82,6 +82,7 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 					}
 					characters = append(characters, Character{
 						Word:  c[0],
+						Spell: word,
 						Len:   wordLength,
 						Count: count,
 						Line:  l,
