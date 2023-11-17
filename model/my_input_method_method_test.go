@@ -36,7 +36,7 @@ func GetMethod() *MyInputMethod {
 		m.Root.insert("de", []Character{
 			{"的", "de", 2, 10, 1},
 		})
-		m.Root.insert("", []Character{
+		m.Root.insert("chao", []Character{
 			{"潮", "chao", 4, 10, 14},
 			{"炒", "chao", 4, 10, 13},
 			{"超", "chao", 4, 10, 12},
@@ -51,6 +51,12 @@ func GetMethod() *MyInputMethod {
 			{"焯", "chao", 4, 10, 3},
 			{"耖", "chao", 4, 10, 2},
 			{"剿", "chao", 4, 10, 1},
+		})
+		m.Root.insert("zhang", []Character{
+			{"长", "zhang", 5, 10, 14},
+		})
+		m.Root.insert("chang", []Character{
+			{"长", "chang", 5, 10, 14},
 		})
 	})
 	return m
