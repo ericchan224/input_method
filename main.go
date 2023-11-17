@@ -42,11 +42,8 @@ func loop(im InputMethod) {
 			break
 		}
 		spell = strings.TrimRight(spell, "\n")
-		if spell == "" || len(spell) > 6 {
-			continue
-		}
 		words := im.FindWords(spell)
-		fmt.Printf("%s\n", strings.Join(words, ", "))
+		fmt.Println(strings.Join(words, ", "))
 	}
 }
 
