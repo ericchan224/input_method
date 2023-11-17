@@ -107,6 +107,9 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 
 // FindWords 根据输入的拼音返回对应的汉字，返回规则见功能描述
 func (mim *MyInputMethod) FindWords(spell string) (words []string) {
+	if spell == "" {
+		return
+	}
 	// Your code here
 	characters := mim.GetCharacter(spell)
 	for _, v := range characters {
