@@ -11,7 +11,7 @@ func commonPrefixLen(wordA, wordB string) int {
 	return move
 }
 
-// CharacterSort
+// CharacterSort 对字符进行自定义规则排序
 func CharacterSort(characters []Character) {
 	sort.Slice(characters, func(i, j int) bool {
 		if characters[i].Count == characters[j].Count && characters[i].Spell == characters[j].Spell {

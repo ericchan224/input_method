@@ -66,7 +66,7 @@ func GetMethod() *MyInputMethod {
 func TestPassCnt(t *testing.T) {
 	r := GetMethod()
 
-	spells := []struct{
+	spells := []struct {
 		Spell string
 		Cnt   int
 	}{
