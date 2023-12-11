@@ -66,10 +66,21 @@ func GetMethod() *MyInputMethod {
 func TestPassCnt(t *testing.T) {
 	r := GetMethod()
 
-	spells := []string{"shui", "shu", "she", "shen", "de", "", "qiong"}
+	spells := []struct{
+		Spell string
+		Cnt   int
+	}{
+		{"shui", 1},
+		{"shu", 2},
+		{"she", 2},
+		{"shen", 1},
+		{"de", 1},
+		{"", 0},
+		{"qiong", 0},
+	}
 	for _, v := range spells {
 		t.Run("PassCnt", func(t *testing.T) {
-			t.Logf("pass cnt: %d", r.PassCnt(v))
+			t.Logf("pass cnt: %v", v.Cnt == r.PassCnt(v.Spell))
 		})
 	}
 }
@@ -78,7 +89,9 @@ func TestPassCnt(t *testing.T) {
 func TestMyInputMethod_Search(t *testing.T) {
 	r := GetMethod()
 	t.Run("test search", func(t *testing.T) {
-		r.Search("shu")
+		if !r.Search("shu") {
+			t.Logf("word shu not founr, maybe shu is not a word")
+		}
 	})
 }
 

@@ -23,7 +23,12 @@ func TestCommonPrefixLen(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			commonPrefixLen(tt.args.wordA, tt.args.wordB)
+			move := commonPrefixLen(tt.args.wordA, tt.args.wordB)
+			if move != tt.want {
+				t.Logf("无公共前缀")
+			} else {
+				t.Logf("公共前缀为%s:", tt.args.wordA[:move])
+			}
 		})
 	}
 }
@@ -32,21 +37,43 @@ func TestCommonPrefixLen(t *testing.T) {
 func TestChSort(t *testing.T) {
 	t.Parallel()
 
-	ch := []Character{{
-		Word:  "a",
-		Len:   1,
-		Count: 1,
-	}, {
-		Word:  "b",
-		Len:   1,
-		Count: 1,
-	}, {
-		Word:  "c",
-		Len:   2,
-		Count: 2,
-	}}
+	a := Character{
+		Word:  "陈",
+		Len:   4,
+		Spell: "chen",
+		Count: 9,
+		Line:  2,
+	}
+	b := Character{
+		Word:  "晨",
+		Len:   4,
+		Spell: "chen",
+		Count: 10,
+		Line:  1,
+	}
+	c := Character{
+		Word:  "成",
+		Len:   5,
+		Spell: "cheng",
+		Count: 10,
+		Line:  1,
+	}
+	d := Character{
+		Word:  "趁",
+		Len:   4,
+		Spell: "chen",
+		Count: 10,
+		Line:  3,
+	}
+	ch := []Character{a, b, c, d}
+	temp := []Character{b, d, c, a}
 	t.Run("character sort", func(t *testing.T) {
 		t.Parallel()
 		CharacterSort(ch)
+		for i := range ch {
+			if ch[i] != temp[i] {
+				t.Logf("排序错误")
+			}
+		}
 	})
 }

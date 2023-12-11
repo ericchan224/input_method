@@ -2,7 +2,6 @@ package model
 
 import (
 	"strings"
-	// "icode.baidu.com/baidu/goodcoder/input_method/common"
 )
 
 // Search 查看一个单词在 radix 当中是否存在

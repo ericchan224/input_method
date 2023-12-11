@@ -54,11 +54,11 @@ func NewMyInputMethod(dicts []string) *MyInputMethod {
 			default:
 				// 直接从本地获取字典文件
 				f, err := os.Open(dict)
-				defer f.Close()
 				if err != nil {
 					log.Println("open file error:", err)
 					return
 				}
+				defer f.Close()
 				res = f
 			}
 
